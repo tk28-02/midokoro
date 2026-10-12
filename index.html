@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4B3FD1">
+<title>なかよし板 見どころ帳</title>
+<script>try{var d=JSON.parse(localStorage.getItem('nkd-disp')||'{}'),r=document.documentElement;if(d.fs)r.style.setProperty('--fsu',d.fs);if(d.bg&&d.bg!=='auto')r.setAttribute('data-theme',d.bg);if(d.strong)r.setAttribute('data-strong','');}catch(e){}</script>
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#EEF0F5; --surface:#FFFFFF; --sunk:#E3E6EE; --ink:#171A23; --muted:#5B6275; --faint:#8A90A1;
+  --line:#D5D9E3; --accent:#4B3FD1; --accent-soft:#E6E3FB; --accent-ink:#3528B8;
+  --h1:#F2C46B; --h2:#EE9A45; --h3:#E5683A; --h4:#D23A38; --heat-ink:#3A1A0E;
+  --bar:#BCC2D2; --bar-hot:#E5683A;
+  --f-body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+  --f-disp:"Dela Gothic One","Zen Kaku Gothic New","Yu Gothic UI",Meiryo,sans-serif;
+  --f-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;
+  --top:0px;
+  --fsb:1; --fsu:1; --fs:calc(var(--fsb) * var(--fsu));
+  color-scheme:light;
+}
+/* スマホは少し大きめの文字から */
+@media (max-width:759px){ :root{ --fsb:1.08; } }
+/* 背景：「端末に合わせる」のときは、端末が暗い表示なら暗くする */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme]){ color-scheme:dark;
+    --bg:#11131A; --surface:#191C25; --sunk:#222634; --ink:#E8EAF1; --muted:#A1A7B8; --faint:#737A8D;
+    --line:#2C3140; --accent:#9A91FF; --accent-soft:#2A2752; --accent-ink:#C3BEFF;
+    --bar:#3A4052; --bar-hot:#F0784A; --heat-ink:#1B0D06; }
+}
+:root[data-theme="white"]{ --bg:#FFFFFF; --surface:#F3F4F8; --sunk:#E6E8EF; --line:#DADDE6; }
+:root[data-theme="sepia"]{ --bg:#EFE5CF; --surface:#FAF4E6; --sunk:#E4D6B8; --ink:#33281B; --muted:#62533D; --faint:#86765C;
+  --line:#D6C6A3; --accent:#9B4C17; --accent-soft:#F1DDC3; --accent-ink:#7B390E; --bar:#CDBB98; }
+:root[data-theme="dark"],:root[data-theme="black"]{ color-scheme:dark;
+  --bg:#11131A; --surface:#191C25; --sunk:#222634; --ink:#E8EAF1; --muted:#A1A7B8; --faint:#737A8D;
+  --line:#2C3140; --accent:#9A91FF; --accent-soft:#2A2752; --accent-ink:#C3BEFF;
+  --bar:#3A4052; --bar-hot:#F0784A; --heat-ink:#1B0D06; }
+:root[data-theme="black"]{ --bg:#000000; --surface:#101116; --sunk:#1C1E25; --line:#272A33; }
+/* 文字をくっきり：うすい灰色の文字を濃くして、少し太くする */
+:root[data-strong]{ --muted:color-mix(in srgb, var(--ink) 84%, var(--bg)); --faint:color-mix(in srgb, var(--ink) 70%, var(--bg)); }
+:root[data-strong] body{font-weight:500}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:calc(14px * var(--fs));line-height:1.55;overflow-wrap:anywhere}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---- 上の帯 ---- */
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;padding:8px 14px;padding-top:max(8px,env(safe-area-inset-top));background:var(--bg);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--f-disp);font-weight:400;font-size:calc(18px * var(--fs));line-height:1.25;margin:0;white-space:nowrap}
+.stats{display:flex;flex-wrap:wrap;gap:0 12px;font-size:calc(12px * var(--fs));color:var(--muted)}
+.stats b{color:var(--ink);font-weight:700}
+.stats .warn b{color:var(--h3)}
+.find{display:flex;align-items:center;gap:6px;flex:1 1 240px;min-width:0;max-width:440px;margin-left:auto}
+.search{flex:1;width:0;min-width:0;font:inherit;font-size:calc(14px * var(--fs));padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.link{border:0;background:none;color:var(--accent-ink);cursor:pointer;padding:4px 2px;font-size:calc(13px * var(--fs));white-space:nowrap}
+.notice{margin:0;padding:6px 14px;font-size:calc(12.5px * var(--fs));background:var(--sunk);border-bottom:1px solid var(--line)}
+.notice[hidden]{display:none}
+.tags{display:flex;gap:5px;overflow-x:auto;padding:6px 14px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tag{flex:0 0 auto;font-size:calc(12.5px * var(--fs));line-height:1;padding:5px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface);cursor:pointer;white-space:nowrap}
+.tag .n{font-family:var(--f-mono);font-size:calc(10.5px * var(--fs));color:var(--faint);margin-left:4px}
+.tag[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+
+/* ---- 日付（せまい画面は横に並べる） ---- */
+.chips{position:sticky;top:0;z-index:10;display:flex;gap:5px;overflow-x:auto;padding:7px 14px;padding-top:max(7px,env(safe-area-inset-top));background:var(--bg);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.chip{flex:0 0 auto;display:grid;justify-items:center;gap:2px;min-width:50px;padding:5px 7px 6px;border:1px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer}
+.chip .d{font-family:var(--f-mono);font-size:calc(12.5px * var(--fs));font-weight:600;line-height:1}
+.chip .w{font-size:calc(10.5px * var(--fs));color:var(--muted);line-height:1}
+.chip .hb{width:30px}
+.chip[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip[aria-current="true"] .w{color:#E9E6FF}
+.hb{display:block;height:4px;border-radius:2px;background:var(--sunk);overflow:hidden}
+.hb i{display:block;height:100%;background:var(--bar-hot)}
+.chip[aria-current="true"] .hb{background:rgba(255,255,255,.3)}
+.chip[aria-current="true"] .hb i{background:#fff}
+
+/* ---- 日付（広い画面は左に一覧） ---- */
+.layout{display:block}
+.rail{display:none}
+.ditem{display:grid;gap:2px;width:100%;text-align:left;border:0;border-left:3px solid transparent;background:none;padding:7px 12px 8px 11px;cursor:pointer;border-bottom:1px solid var(--line)}
+.ditem:hover{background:var(--surface)}
+.ditem .dl{display:flex;align-items:center;gap:8px;font-size:calc(12px * var(--fs));color:var(--muted)}
+.ditem .dl b{font-family:var(--f-mono);font-size:calc(13px * var(--fs));font-weight:600;color:var(--ink)}
+.ditem .dl .hb{width:46px;margin-left:auto}
+.ditem .dh{font-size:calc(12.5px * var(--fs));line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ditem .dh.none{color:var(--faint)}
+.ditem[aria-current="true"]{background:var(--accent-soft);border-left-color:var(--accent)}
+
+main{padding:10px 14px 24px;min-width:0}
+
+/* ---- 1日の見出し ---- */
+.dhead{display:grid;gap:4px 18px;grid-template-columns:minmax(0,1fr);padding-bottom:8px}
+.dmeta{display:flex;flex-wrap:wrap;gap:0 12px;font-size:calc(12.5px * var(--fs));color:var(--muted)}
+.dmeta b{font-family:var(--f-mono);font-weight:600;color:var(--ink)}
+.dhead h2{font-family:var(--f-disp);font-weight:400;font-size:calc(clamp(19px,4.6vw,23px) * var(--fs));line-height:1.35;margin:0}
+.dhead h2.none{font-family:var(--f-body);font-size:calc(15px * var(--fs));font-weight:500;color:var(--muted)}
+.dnote{margin:0;font-size:calc(12px * var(--fs));color:var(--muted)}
+.spark svg{display:block;width:100%;height:36px}
+.spark .ax{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:calc(10px * var(--fs));color:var(--faint);line-height:1.2}
+
+/* ---- 区切りの見出し ---- */
+.sec{margin-top:12px}
+.sh{display:flex;align-items:baseline;gap:8px;margin:0 0 6px;font-size:calc(13px * var(--fs));font-weight:700}
+.sh .c{font-weight:400;font-size:calc(12px * var(--fs));color:var(--muted)}
+.sh .link{margin-left:auto}
+
+/* ---- 勢いの色 ---- */
+.l1{--heat:var(--h1)}.l2{--heat:var(--h2)}.l3{--heat:var(--h3)}.l4{--heat:var(--h4)}
+.heat{font-family:var(--f-mono);font-size:calc(11px * var(--fs));font-weight:600;line-height:1;padding:3px 5px;border-radius:5px;background:var(--heat);color:var(--heat-ink);white-space:nowrap}
+.heat small{font-size:calc(9.5px * var(--fs));font-weight:500;opacity:.8}
+.l3 .heat,.heat.l3,.l4 .heat,.heat.l4{color:#fff}
+.tm{font-family:var(--f-mono);font-size:calc(11.5px * var(--fs));color:var(--faint);margin-right:5px}
+
+/* ---- 見どころ ---- */
+.hlg{list-style:none;margin:0;padding:0;display:grid;gap:6px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.hl{background:var(--surface);border-left:3px solid var(--heat);border-radius:6px;padding:7px 10px 8px;display:grid;gap:2px;align-content:start}
+.hl .ht{display:flex;align-items:center;gap:6px}
+.hl .ht .tm{font-size:calc(12.5px * var(--fs));font-weight:600;color:var(--ink);margin:0}
+.hl b{font-size:calc(14.5px * var(--fs));line-height:1.45}
+.hl p{margin:0;font-size:calc(13.5px * var(--fs))}
+.hl .hn{display:flex;flex-wrap:wrap;gap:2px 8px;font-size:calc(11.5px * var(--fs));color:var(--accent-ink)}
+
+/* ---- 時間帯ごと（番組表のように段組み） ---- */
+.cols{display:block}
+.win{background:var(--surface);border-left:3px solid var(--heat);border-radius:6px;margin:0 0 6px;padding:0 10px;break-inside:avoid}
+.win summary{display:flex;align-items:center;gap:7px;padding:6px 0;cursor:pointer;list-style:none;min-width:0}
+.win summary::-webkit-details-marker{display:none}
+.win .wt{font-family:var(--f-mono);font-size:calc(13px * var(--fs));font-weight:600;flex:0 0 auto}
+.win .heat{flex:0 0 auto}
+.win .pv{flex:1;min-width:0;font-size:calc(12.5px * var(--fs));color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.win[open] .pv{display:none}
+.win .n{margin-left:auto;font-size:calc(11px * var(--fs));color:var(--faint);flex:0 0 auto}
+.tps{padding:0 0 7px}
+.tp{margin:0;padding:2px 0;font-size:calc(13.5px * var(--fs));line-height:1.5}
+.tp + .tp{border-top:1px dashed var(--line)}
+.tp b{font-weight:700}
+.tp .sm{color:var(--muted)}
+.src{font-family:var(--f-mono);font-size:calc(11px * var(--fs));color:var(--faint)}
+.src a{color:inherit}
+
+/* ---- 告知・スレ ---- */
+.ann{list-style:none;margin:0;padding:0;display:grid;gap:4px 14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))}
+.ann li{font-size:calc(13px * var(--fs));border-left:2px solid var(--line);padding-left:8px}
+.ann .who{display:block;font-size:calc(11.5px * var(--fs));color:var(--muted)}
+.thr{display:flex;flex-wrap:wrap;gap:5px}
+.thr a{font-family:var(--f-mono);font-size:calc(11.5px * var(--fs));padding:3px 7px;border-radius:5px;background:var(--sunk);color:var(--muted);text-decoration:none}
+
+/* ---- 検索 ---- */
+.rh{font-size:calc(13px * var(--fs));color:var(--muted);margin:2px 0 10px}
+.rh b{color:var(--ink)}
+.grp{margin-bottom:14px}
+.grp .gh{display:flex;align-items:baseline;gap:10px;margin-bottom:5px;font-size:calc(13px * var(--fs))}
+.grp .gh b{font-family:var(--f-mono)}
+.hit{background:var(--surface);border-left:3px solid var(--heat);border-radius:6px;padding:4px 10px;margin:0 0 5px;break-inside:avoid}
+.hit .tp{border:0}
+mark{background:var(--accent-soft);color:inherit;border-radius:3px;padding:0 1px}
+.empty{color:var(--muted);font-size:calc(14px * var(--fs));padding:18px 0}
+
+footer{padding:14px;font-size:calc(11.5px * var(--fs));color:var(--faint);display:grid;gap:2px;justify-items:start}
+.setup{max-width:640px;display:grid;gap:10px;padding:8px 0 20px}
+.setup h2{font-family:var(--f-disp);font-weight:400;font-size:calc(20px * var(--fs));margin:0}
+.setup p,.setup ol{margin:0;font-size:calc(14px * var(--fs))}
+.setup ol{padding-left:1.4em;display:grid;gap:4px}
+.setup a{color:var(--accent-ink);font-weight:700}
+.setup .row{display:flex;gap:8px}
+.btn{border:0;border-radius:8px;background:var(--accent);color:#fff;font-weight:700;padding:7px 16px;cursor:pointer}
+.setup .err{color:var(--h4);font-weight:700}
+.setup .small{font-size:calc(12px * var(--fs));color:var(--muted)}
+.tags:empty,.chips:empty{display:none}
+/* ---- まとめ／伸びたレス の切り替え ---- */
+.tabs{display:flex;gap:4px;margin:6px 0 2px;border-bottom:1px solid var(--line)}
+.tabb{border:0;background:none;padding:7px 12px 8px;font-size:calc(14px * var(--fs));font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabb .c{font-family:var(--f-mono);font-size:calc(11.5px * var(--fs));font-weight:600;margin-left:5px;color:var(--faint)}
+.tabb[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tabb[aria-selected="true"] .c{color:var(--accent-ink)}
+/* ---- 伸びたレス ---- */
+.hotbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:10px 0 8px;font-size:calc(13px * var(--fs))}
+.hotbar .lbl{color:var(--muted)}
+.hchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 10px;font-size:calc(12.5px * var(--fs));cursor:pointer}
+.hchip .c{font-family:var(--f-mono);font-size:calc(11px * var(--fs));color:var(--faint);margin-left:4px}
+.hchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.hchip[aria-pressed="true"] .c{color:#E9E6FF}
+.hotbar .sp{flex:1}
+.imgsw{display:inline-flex;align-items:center;gap:4px;color:var(--muted);cursor:pointer}
+.hp{background:var(--surface);border-left:3px solid var(--heat);border-radius:6px;padding:8px 10px 8px;margin:0 0 8px;break-inside:avoid}
+.hp .hh{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-bottom:4px}
+.hp .hh .tm{font-size:calc(12.5px * var(--fs));font-weight:600;color:var(--ink);margin:0}
+.rc{font-size:calc(12px * var(--fs));font-weight:700;color:var(--heat-ink);background:var(--heat);border-radius:5px;padding:2px 6px;line-height:1.3}
+.l3 .rc,.l4 .rc{color:#fff}
+.hp .hh .src{margin-left:auto}
+.hp .id{font-family:var(--f-mono);font-size:calc(10.5px * var(--fs));color:var(--faint)}
+.pb{font-size:calc(14px * var(--fs));line-height:1.55}
+.anc{color:var(--accent-ink);font-family:var(--f-mono);font-size:.92em}
+.pb a,.rl a{color:var(--accent-ink);word-break:break-all}
+.media{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.media a{display:block;line-height:0}
+.media img{display:block;max-width:100%;max-height:240px;border-radius:6px;background:var(--sunk)}
+.media img.yt{max-height:150px}
+.rl{list-style:none;margin:8px 0 0;padding:6px 0 0 10px;border-top:1px dashed var(--line);display:grid;gap:3px}
+.rl li{font-size:calc(13px * var(--fs));line-height:1.5;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 6px}
+.rl li .tm{grid-row:1 / span 2;margin:0;padding-top:1px;font-size:calc(11px * var(--fs))}
+.rl .x{font-family:var(--f-mono);font-size:calc(11px * var(--fs));font-weight:600;color:var(--accent-ink);margin-left:4px;white-space:nowrap}
+.rl .nn{font-family:var(--f-mono);font-size:calc(10.5px * var(--fs));color:var(--faint);margin-left:4px;white-space:nowrap}
+.rl .media img{max-height:130px}
+.hp:not(.open) .rl li.more{display:none}
+.hp .rmore{margin-top:4px;font-size:calc(12.5px * var(--fs))}
+.ctx{font-size:calc(12.5px * var(--fs));color:var(--muted);border-left:2px solid var(--line);padding:1px 0 1px 8px;margin:0 0 5px;line-height:1.5}
+.ctx > div + div{margin-top:3px}
+/* ---- 話題をタップ → 元のレス ---- */
+.tp[data-lg],.hl[data-lg]{cursor:pointer}
+.tp[data-lg]{border-radius:4px}
+.tp[data-lg]:hover,.hl[data-lg]:hover{background:var(--sunk)}
+.go{font-size:calc(11.5px * var(--fs));font-weight:700;color:var(--accent-ink);white-space:nowrap;margin-left:4px}
+.hl .hn .go{margin-left:auto}
+body.lock{overflow:hidden}
+.lv{position:fixed;inset:0;z-index:80;display:flex;justify-content:center;background:rgba(8,10,18,.55)}
+.lv[hidden]{display:none}
+.lvp{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;background:var(--bg)}
+.lvh{position:relative;display:grid;gap:3px;padding:10px 50px 8px 14px;padding-top:max(10px,env(safe-area-inset-top));background:var(--surface);border-bottom:1px solid var(--line)}
+.lvx{position:absolute;top:max(7px,env(safe-area-inset-top));right:9px;width:34px;height:34px;border:0;border-radius:50%;background:var(--sunk);font-size:calc(15px * var(--fs));line-height:1;cursor:pointer}
+.lvm{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;font-size:calc(12.5px * var(--fs));color:var(--muted)}
+.lvm b{font-family:var(--f-mono);color:var(--ink)}
+.lvt{display:block;min-width:0;max-width:100%;border:0;background:none;padding:0;text-align:left;font:inherit;font-weight:700;font-size:calc(15.5px * var(--fs));line-height:1.4;color:var(--ink);cursor:pointer}
+.lvd{display:grid;gap:3px}
+.lvrow .sep{flex:0 0 1px;align-self:stretch;background:var(--line);margin:3px 4px}
+@media (max-width:759px){
+  .lvh{padding-top:max(8px,env(safe-area-inset-top));padding-bottom:6px;gap:2px}
+  .lvt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lvt::after{content:" ▾";color:var(--accent-ink);font-size:.8em}
+  .lvh:not(.more) .lvd{display:none}
+  .lvh.more .lvt{white-space:normal}
+  .lvh.more .lvt::after{content:" ▴"}
+  .lvbar{padding:6px 12px;gap:4px}
+  .lvb{padding:8px 10px 28px}
+}
+.lvs{margin:0;font-size:calc(13px * var(--fs));color:var(--muted)}
+.lvh .hn{display:flex;flex-wrap:wrap;gap:2px 8px;font-size:calc(11.5px * var(--fs));color:var(--accent-ink)}
+.lvbar{display:grid;gap:5px;padding:7px 14px;background:var(--bg);border-bottom:1px solid var(--line)}
+.lvrow{display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.lvrow::-webkit-scrollbar{display:none}
+.lvrow .lbl{flex:0 0 auto;font-size:calc(12px * var(--fs));color:var(--muted)}
+.lvrow .hchip,.lvrow .link,.lvrow .imgsw{flex:0 0 auto}
+.lvrow .hchip{padding:3px 9px;font-size:calc(12px * var(--fs))}
+.lvrow .sp{flex:1}
+.lvrow.wrap{flex-wrap:wrap;white-space:normal;overflow:visible;gap:4px 10px}
+.lvb{position:relative;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:10px 14px 28px}
+.lp{padding:6px 10px 7px;margin:0 0 6px}
+.lp.n0{--heat:var(--line)}
+.lp.hit{background:color-mix(in srgb, var(--accent-soft) 60%, var(--surface))}
+.refb{font-size:calc(11px * var(--fs));font-weight:700;line-height:1.3;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--accent);border-radius:5px;padding:1px 6px}
+.lvnote{margin:0 0 8px;font-size:calc(12.5px * var(--fs));color:var(--muted)}
+.hchip[disabled]{opacity:.45;cursor:default}
+.lp .ctx > div{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.thn{font-family:var(--f-mono);font-size:calc(10.5px * var(--fs));line-height:1.3;padding:1px 5px;border-radius:4px;background:hsl(var(--hue) 70% 55% / .22);color:var(--muted)}
+.rcb{border:0;cursor:pointer;font-size:calc(12px * var(--fs));font-weight:700;line-height:1.3;padding:2px 7px;border-radius:5px;background:var(--sunk);color:var(--muted)}
+.l1 .rcb,.l2 .rcb{background:var(--heat);color:var(--heat-ink)}
+.l3 .rcb,.l4 .rcb{background:var(--heat);color:#fff}
+.rcb[aria-expanded="true"]{outline:2px solid var(--accent);outline-offset:1px}
+.lvmark{display:flex;align-items:center;gap:8px;margin:4px 0 8px;font-size:calc(12px * var(--fs));font-weight:700;color:var(--accent-ink)}
+.lvmark::before,.lvmark::after{content:"";flex:1;height:1px;background:var(--accent)}
+.lvext{display:block;width:100%;margin:0 0 10px;padding:8px;border:1px dashed var(--faint);border-radius:8px;background:none;color:var(--accent-ink);font-weight:700;cursor:pointer}
+.lvext + .lvext,.lvb > .lvext:last-child{margin:6px 0 0}
+@media (min-width:760px){
+  .lv{padding:3vh 16px}
+  .lvp{max-width:900px;border-radius:12px;overflow:hidden;box-shadow:0 14px 44px rgba(0,0,0,.4)}
+}
+/* ---- 文字の大きさ・背景 ---- */
+.dbtn{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 9px;font-family:var(--f-body);font-weight:700;font-size:calc(14px * var(--fs));line-height:1.2;cursor:pointer}
+.dbtn[aria-expanded="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.dsp{position:fixed;z-index:90;left:0;right:0;bottom:0;max-height:85vh;overflow-y:auto;background:var(--surface);color:var(--ink);border-top:1px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -10px 34px rgba(0,0,0,.3);padding:12px 16px max(14px,env(safe-area-inset-bottom));display:grid;gap:10px}
+.dsp[hidden]{display:none}
+.dsp h3{margin:0;font-size:calc(15px * var(--fs))}
+.dsp .row{display:grid;gap:5px}
+.dsp .lbl{font-size:calc(12.5px * var(--fs));color:var(--muted);font-weight:700}
+.dsp .opts{display:flex;flex-wrap:wrap;gap:6px}
+.dsp .hchip{padding:6px 12px;font-size:calc(13.5px * var(--fs))}
+.dsp .sample{margin:0;padding:8px 10px;border-radius:8px;background:var(--bg);font-size:calc(14px * var(--fs))}
+.dsp .sample small{display:block;color:var(--muted);font-size:calc(12px * var(--fs))}
+.dsp .end{justify-self:end}
+@media (min-width:760px){
+  .dsp{left:auto;right:14px;bottom:auto;top:58px;width:400px;border:1px solid var(--line);border-radius:12px}
+}
+.toast{position:fixed;z-index:95;left:12px;right:12px;bottom:max(14px,env(safe-area-inset-bottom));margin:0 auto;max-width:520px;background:var(--ink);color:var(--bg);border-radius:10px;padding:10px 12px;box-shadow:0 8px 28px rgba(0,0,0,.35);display:grid;gap:8px;font-size:calc(13.5px * var(--fs))}
+.toast[hidden]{display:none}
+.toast .acts{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.toast button{border:0;border-radius:7px;padding:6px 11px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff}
+.toast button.sub{background:transparent;color:var(--bg);border:1px solid currentColor}
+.toast input{width:100%;font:inherit;padding:5px 7px;border-radius:6px;border:0}
+.lp{content-visibility:auto;contain-intrinsic-size:auto 96px}
+.gh-only{display:none}
+.is-gh .gh-only{display:inline-block}
+.app-only{display:none}
+.is-app .app-only{display:inline-block}
+
+/* ---- 画面の広さごと ---- */
+@media (min-width:760px){
+  main{padding:12px 18px 28px}
+  .cols{columns:320px;column-gap:10px}
+  .dhead{grid-template-columns:minmax(0,1fr) minmax(200px,300px);align-items:end}
+  .dhead .spark{grid-column:2;grid-row:1 / span 3}
+  .tags{padding-inline:18px}
+}
+@media (min-width:1100px){
+  .bar{position:sticky;top:0;z-index:20}
+  .chips{display:none}
+  .layout{display:grid;grid-template-columns:250px minmax(0,1fr)}
+  .rail{display:block;position:sticky;top:var(--top);height:calc(100vh - var(--top));overflow-y:auto;border-right:1px solid var(--line);scrollbar-width:thin}
+  main{padding:12px 22px 28px}
+}
+@media (min-width:1600px){
+  .layout{grid-template-columns:280px minmax(0,1fr)}
+  .cols{columns:340px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .ditem,.chip,.tag{transition:background-color .12s}
+}
+</style>
+</head>
+<body>
+<header class="bar" id="bar">
+  <h1 class="brand">なかよし板 見どころ帳</h1>
+  <div class="stats" id="stats"></div>
+  <div class="find">
+    <input id="q" class="search" type="search" placeholder="ライバー名や話題で探す" aria-label="ライバー名や話題で探す" enterkeyhint="search">
+    <button id="clear" class="link" hidden>クリア</button>
+    <button id="reload" class="link app-only">最新にする</button>
+    <button id="dispBtn" class="dbtn" aria-label="文字の大きさと背景" aria-expanded="false" aria-controls="disp">Aa</button>
+  </div>
+</header>
+<p class="notice" id="notice" hidden></p>
+<nav class="tags" id="tags" aria-label="よく出る名前"></nav>
+<div class="layout">
+  <nav class="chips" id="chips" aria-label="日付"></nav>
+  <nav class="rail" id="rail" aria-label="日付"></nav>
+  <main id="main"><p class="empty">読み込んでいます…</p></main>
+</div>
+<footer>
+  <span>勢い＝10分あたりのレス数。要約はPCのLLMが書いたもので、事実確認はしていません。</span>
+  <span>この掲示板は転載禁止です。自分の端末だけで見て、共有しないでください。</span>
+  <button id="retoken" class="link gh-only">GitHubのトークンを入れ直す</button>
+</footer>
+<div class="dsp" id="disp" role="dialog" aria-label="文字の大きさと背景" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<div class="lv" id="lv" hidden>
+  <section class="lvp" role="dialog" aria-modal="true" aria-label="元のレス">
+    <header class="lvh" id="lvh"></header>
+    <div class="lvbar" id="lvbar"></div>
+    <div class="lvb" id="lvb"></div>
+  </section>
+</div>
+<script id="data" type="application/json">{"github": {"owner": "tk28-02", "repo": "midokoro-data"}}</script>
+<script>
+(function(){
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const WD = ['日','月','火','水','木','金','土'];
+  const fmtD = ds => { const [y,m,d] = ds.split('-').map(Number); return {md:`${m}/${d}`, w:WD[new Date(y, m-1, d).getDay()]}; };
+  const lvl = v => v >= 500 ? 4 : v >= 350 ? 3 : v >= 250 ? 2 : 1;
+  const man = n => n >= 10000 ? (n / 10000).toFixed(1) + '万' : n.toLocaleString();
+  const TH = 'https://bbs.jpnkn.com/test/read.cgi/nijifunbbs/';
+  const WEB = location.protocol === 'https:' || location.protocol === 'http:';
+  const wide = () => matchMedia('(min-width:760px)').matches;
+  // 元のレスへのリンク：Android では ChMate で開く（開けなかったら、このページに戻ってきて知らせる）
+  const ANDROID = /Android/i.test(navigator.userAgent);
+  const CHMATE = 'jp.co.airfront.android.a2chMate';
+  function bbsLink(tid, no, label){
+    const web = TH + tid + '/' + (no ? no + '-' : 'l50');
+    // ChMate はこの掲示板のリンクを受け付けないので、Android ではタップでURLをコピーして ChMate に貼ってもらう
+    return `<a href="${esc(web)}" target="_blank" rel="noopener"${ANDROID ? ` class="cm" data-bbs="${esc(tid + '/' + (no || ''))}"` : ''}>${label}</a>`;
+  }
+
+  // ---- データの読み込み（ページに埋め込み／日ごとのファイル） ----
+  const NKD = window.NKD = {
+    idx: null, days: {}, hots: {}, logs: {},
+    index(x){ NKD.idx = x; },
+    day(d){ NKD.days[d.date] = d; },
+    hot(x){ NKD.hots[x.date] = x; },
+    log(x){ NKD.logs[x.date + '/' + x.h] = x; }
+  };
+  function loadScript(src){
+    return new Promise((ok, ng) => {
+      const s = document.createElement('script');
+      s.src = src; s.async = true;
+      s.onload = () => { s.remove(); ok(); };
+      s.onerror = () => { s.remove(); ng(new Error(src)); };
+      document.head.appendChild(s);
+    });
+  }
+  function nameCounts(d){
+    const c = {};
+    (d.highlights || []).forEach(h => (h.names || []).forEach(n => c[n] = (c[n] || 0) + 2));
+    (d.timeline || []).forEach(w => (w.topics || []).forEach(t => (t.names || []).forEach(n => c[n] = (c[n] || 0) + 1)));
+    return Object.entries(c).sort((a, b) => b[1] - a[1]).slice(0, 20);
+  }
+  let EMB = null;
+  try { EMB = JSON.parse(document.getElementById('data').textContent); } catch (e) {}
+  const LEGACY = !!(EMB && EMB.days);          // 古い形：全部の日がページに埋め込み
+  const GH = EMB && EMB.github ? EMB.github : null;   // スマホ用：GitHub の非公開リポジトリから読む
+  let token = '';
+  try { token = localStorage.getItem('nkd-gh-token') || ''; } catch (e) {}
+  async function ghJSON(path, v){
+    const url = `${GH.api || 'https://api.github.com'}/repos/${encodeURIComponent(GH.owner)}/${encodeURIComponent(GH.repo)}/contents/${path}` + (v ? `?v=${v}` : '');
+    const r = await fetch(url, {headers: {Authorization: 'Bearer ' + token, Accept: 'application/vnd.github.raw+json'}, cache: 'no-store'});
+    if (!r.ok){ const e = new Error('HTTP ' + r.status); e.status = r.status; throw e; }
+    return r.json();
+  }
+  if (LEGACY) {
+    NKD.idx = {built: EMB.built, fetched: EMB.fetched, blocked: EMB.blocked, pending: EMB.pending,
+      days: EMB.days.map(d => ({date: d.date, posts: d.posts, peak: d.peak, headline: d.headline || '', pending: d.pending || 0,
+        waiting: d.waiting || 0, partial: !!d.partial, hourly: d.hourly || [], v: 'emb', names: nameCounts(d)}))};
+    EMB.days.forEach(d => NKD.days[d.date] = d);
+  }
+  let idx = null, byDate = {}, loadedV = {}, loadedH = {};
+  async function loadHot(date){
+    const di = byDate[date] || {};
+    if (NKD.hots[date] && loadedH[date] === di.hv) return NKD.hots[date];
+    if (LEGACY) return null;
+    if (GH) NKD.hots[date] = await ghJSON(`data/hot/${date}.json`, di.hv);
+    else await loadScript(`data/hot/${date}.js?v=${di.hv || Date.now()}`);
+    loadedH[date] = di.hv;
+    return NKD.hots[date] || null;
+  }
+  async function loadIndex(){
+    if (GH) NKD.idx = await ghJSON('data/index.json');
+    else if (!LEGACY) await loadScript('data/index.js?t=' + Date.now());
+    idx = NKD.idx;
+    byDate = Object.fromEntries((idx && idx.days || []).map(d => [d.date, d]));
+  }
+  async function loadDay(date){
+    const di = byDate[date];
+    if (NKD.days[date] && (LEGACY || loadedV[date] === di.v)) return NKD.days[date];
+    if (GH) NKD.days[date] = await ghJSON(`data/days/${date}.json`, di.v);
+    else await loadScript(`data/days/${date}.js?v=${di.v}`);
+    loadedV[date] = di.v;
+    return NKD.days[date];
+  }
+  async function loadAll(onStep){
+    const list = idx.days.map(d => d.date); let n = 0, i = 0;
+    async function worker(){ while (i < list.length){ const d = list[i++]; try { await loadDay(d); } catch (e) {} onStep(++n, list.length); } }
+    await Promise.all([worker(), worker(), worker(), worker()]);
+  }
+
+  // ---- 状態 ----
+  const state = {date: '', q: '', tag: '', open: null, tab: 'sum', hmin: 10, hsort: 'n', img: true};
+  try {
+    state.date = localStorage.getItem('nkd-date') || '';
+    const v = JSON.parse(localStorage.getItem('nkd-view') || '{}');
+    if (v.tab === 'hot') state.tab = 'hot';
+    if ([5, 10, 20, 30].includes(v.hmin)) state.hmin = v.hmin;
+    if (v.hsort === 't') state.hsort = 't';
+    if (v.img === false) state.img = false;
+  } catch (e) {}
+  const save = () => { try {
+    localStorage.setItem('nkd-date', state.date);
+    localStorage.setItem('nkd-view', JSON.stringify({tab: state.tab, hmin: state.hmin, hsort: state.hsort, img: state.img}));
+  } catch (e) {} };
+
+  // ---- 上の帯・日付・名前 ----
+  function renderChrome(offline){
+    const days = idx.days, total = days.reduce((a, d) => a + (d.posts || 0), 0);
+    const pend = idx.pending || 0;
+    $('#stats').innerHTML =
+      `<span>収録 <b>${fmtD(days[days.length - 1].date).md}〜${fmtD(days[0].date).md}</b></span>` +
+      `<span><b>${days.length}</b>日分</span><span><b>${man(total)}</b>レス</span>` +
+      (idx.fetched ? `<span>最終取得 <b>${esc(idx.fetched)}</b></span>` : '') +
+      (pend ? `<span class="warn" title="PCを使っていない時間に少しずつ要約します">未要約 <b>${pend.toLocaleString()}</b>枠</span>` : '');
+    const notes = [];
+    if (offline) notes.push(GH ? 'ネットにつながらないので、前に読み込んだ内容を表示しています。' : 'PCにつながらないので、前に読み込んだ内容を表示しています。');
+    if (idx.blocked) notes.push('掲示板にログの取得を断られています。しばらくしてから自動でやり直します。');
+    $('#notice').textContent = notes.join(' ');
+    $('#notice').hidden = !notes.length;
+    const maxPeak = Math.max(1, ...days.map(d => d.peak || 0));
+    $('#chips').innerHTML = days.map(d => { const f = fmtD(d.date);
+      return `<button class="chip" data-date="${d.date}"><span class="d">${f.md}</span><span class="w">${f.w}</span><span class="hb"><i style="width:${Math.round((d.peak || 0) / maxPeak * 100)}%"></i></span></button>`; }).join('');
+    $('#rail').innerHTML = days.map(d => { const f = fmtD(d.date);
+      return `<button class="ditem" data-date="${d.date}"><span class="dl"><b>${f.md}</b><span>${f.w}</span><span>${man(d.posts || 0)}</span><span class="hb"><i style="width:${Math.round((d.peak || 0) / maxPeak * 100)}%"></i></span></span>` +
+        `<span class="dh${d.headline ? '' : ' none'}">${d.headline ? esc(d.headline) : (d.pending ? `未要約（${d.pending}枠）` : 'まだ要約していません')}</span></button>`; }).join('');
+    const tc = {};
+    days.forEach(d => (d.names || []).forEach(([n, c]) => tc[n] = (tc[n] || 0) + c));
+    $('#tags').innerHTML = Object.entries(tc).sort((a, b) => b[1] - a[1]).slice(0, 60)
+      .map(([t, n]) => `<button class="tag" data-tag="${esc(t)}" aria-pressed="false">${esc(t)}<span class="n">${n}</span></button>`).join('');
+  }
+  function markCurrent(){
+    const searching = !!(state.q || state.tag);
+    document.querySelectorAll('.chip,.ditem').forEach(b => b.setAttribute('aria-current', String(!searching && b.dataset.date === state.date)));
+    document.querySelectorAll('.tag').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tag === state.tag)));
+    $('#clear').hidden = !searching;
+    const c = document.querySelector(`.chip[data-date="${state.date}"]`);
+    if (c && !searching) c.scrollIntoView({block: 'nearest', inline: 'center'});
+    const r = document.querySelector(`.ditem[data-date="${state.date}"]`);
+    if (r && !searching) r.scrollIntoView({block: 'nearest'});
+  }
+
+  // ---- 1日ぶん ----
+  function heatAt(d, time){
+    if (!time) return null;
+    const w = (d.timeline || []).filter(c => c.start <= time && time < c.end);
+    return w.length ? Math.max(...w.map(c => c.per10)) : null;
+  }
+  function srcAt(d, time){
+    const w = (d.timeline || []).find(c => c.start <= time && time < c.end);
+    return w && w.first ? w.first : null;
+  }
+  function spark(d){
+    const h = d.hourly || [], mx = Math.max(...h, 1), W = 240, H = 36, bw = W / 24;
+    const hot = new Set((d.highlights || []).map(x => parseInt(x.time, 10)));
+    const bars = h.map((v, i) => { const bh = v ? Math.max(2, v / mx * (H - 4)) : 0;
+      return `<rect x="${(i * bw + 0.8).toFixed(1)}" y="${(H - bh).toFixed(1)}" width="${(bw - 1.6).toFixed(1)}" height="${bh.toFixed(1)}" rx="1" fill="var(${hot.has(i) ? '--bar-hot' : '--bar'})"></rect>`; }).join('');
+    return `<div class="spark"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="時間帯ごとのレス数。いちばん多い1時間は${mx}レス">${bars}</svg><div class="ax"><span>0時</span><span>6</span><span>12</span><span>18</span><span>24時</span></div></div>`;
+  }
+  function hi(s, q){
+    let t = esc(s);
+    if (q){ const r = new RegExp(esc(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'); t = t.replace(r, m => `<mark>${m}</mark>`); }
+    return t;
+  }
+  const heatTag = v => `<span class="heat l${lvl(v)}" title="10分あたり${v}レス">${v}<small>/10分</small></span>`;
+  function hlCard(h, d, q){
+    const v = heatAt(d, h.time), s = srcAt(d, h.time), at = lgAttr(d, h);
+    return `<li class="hl l${lvl(v || 0)}"${at}><div class="ht"><span class="tm">${esc(h.time)}</span>${v ? heatTag(v) : ''}</div>` +
+      `<b>${hi(h.title, q)}</b><p>${hi(h.summary, q)}</p>` +
+      `<div class="hn">${(h.names || []).map(t => `<span>#${esc(t)}</span>`).join('')}${s ? `<span class="src">${bbsLink(s.tid, s.no, `&gt;&gt;${s.no}〜`)}</span>` : ''}${at ? '<span class="go">元レス ›</span>' : ''}</div></li>`;
+  }
+  const topicLine = (t, q, at) => `<p class="tp"${at || ''}><span class="tm">${esc(t.time)}</span><b>${hi(t.title, q)}</b> <span class="sm">${hi(t.summary, q)}</span>${at ? '<span class="go">元レス ›</span>' : ''}</p>`;
+  function dayHTML(d){
+    const f = fmtD(d.date), hours = (d.hourly || []).map((v, i) => v ? i : null).filter(v => v != null);
+    const notes = [];
+    if (d.partial && hours.length) notes.push(`この日は手元のログが ${hours[0]}時〜${hours[hours.length - 1]}時台 だけです。`);
+    if (d.pending) notes.push(`まだ要約していない時間帯が ${d.pending} 枠あります。`);
+    if (d.waiting) notes.push(`進行中の ${d.waiting} 枠は、区切りが終わってから要約します。`);
+    let h = `<header class="dhead">` +
+      `<div class="dmeta"><span><b>${d.date.replace(/-/g, '.')}</b>（${f.w}）</span><span><b>${(d.posts || 0).toLocaleString()}</b>レス</span><span>ピーク <b>${d.peak || 0}</b>/10分</span></div>` +
+      (d.headline ? `<h2>${esc(d.headline)}</h2>` : `<h2 class="none">まだ要約していません。PCを使っていない時間に進めます。</h2>`) +
+      (notes.length ? `<p class="dnote">${notes.join(' ')}</p>` : '') + spark(d) + `</header>`;
+    return h;
+  }
+  function tabsHTML(d){
+    const di = byDate[d.date] || {}, n = di.hot ? di.hot[0] : null;
+    return `<div class="tabs" role="tablist"><button class="tabb" role="tab" data-tab="sum" aria-selected="${state.tab !== 'hot'}">まとめ</button>` +
+      `<button class="tabb" role="tab" data-tab="hot" aria-selected="${state.tab === 'hot'}">伸びたレス${n != null ? `<span class="c">${n}</span>` : ''}</button></div>`;
+  }
+  function sumHTML(d){
+    let h = ''; LGREG.length = 0;
+    if ((d.highlights || []).length)
+      h += `<section class="sec"><h3 class="sh">見どころ<span class="c">${d.highlights.length}件</span></h3><ol class="hlg">${d.highlights.map(x => hlCard(x, d)).join('')}</ol></section>`;
+    if ((d.timeline || []).length){
+      const groups = {}; d.timeline.forEach(c => (groups[c.start] = groups[c.start] || []).push(c));
+      const entries = Object.entries(groups);
+      const nTopics = d.timeline.reduce((a, c) => a + (c.topics || []).length, 0);
+      const open = state.open == null ? wide() : state.open;
+      h += `<section class="sec"><h3 class="sh">時間帯ごと<span class="c">${entries.length}枠・${nTopics}話題</span><button class="link" data-act="toggle">${open ? 'すべてたたむ' : 'すべて開く'}</button></h3><div class="cols">` +
+        entries.map(([st, cs]) => {
+          const tps = cs.flatMap(c => (c.topics || []).map(t => [t, c])), v = Math.max(...cs.map(c => c.per10 || 0)), first = cs[0].first;
+          return `<details class="win l${lvl(v)}"${open ? ' open' : ''}><summary><span class="wt">${st}</span>${heatTag(v)}<span class="pv">${esc(tps.slice(0, 2).map(x => x[0].title).join(' / '))}</span><span class="n">${tps.length}</span></summary>` +
+            `<div class="tps">${tps.map(([t, c]) => topicLine(t, '', lgAttr(d, t, c))).join('')}${first ? `<div class="src">${bbsLink(first.tid, first.no, `スレの &gt;&gt;${first.no}〜`)}</div>` : ''}</div></details>`;
+        }).join('') + `</div></section>`;
+    }
+    if ((d.announcements || []).length)
+      h += `<section class="sec"><h3 class="sh">貼られた告知・ポスト<span class="c">${d.announcements.length}件</span></h3><ul class="ann">${d.announcements.map(a => `<li><span class="who">${esc(a.time)}　${esc(a.who)} @${esc(a.handle)}</span>${esc(a.text)}</li>`).join('')}</ul></section>`;
+    if ((d.threads || []).length)
+      h += `<section class="sec"><h3 class="sh">この日のスレ</h3><div class="thr">${d.threads.map(t => bbsLink(t.tid, 0, `${t.no ? 'No.' + esc(t.no) : esc(t.tid)}・${t.n}レス`)).join('')}</div></section>`;
+    return h;
+  }
+
+  // ---- 書き込みの本文（リンク・画像・アンカー） ----
+  const URL_RX = /h?ttps?:\/\/[^\s<>"'）」』】]+/gi;
+  const IMG_X = /\.(jpe?g|png|gif|webp)(\?|$)/i;
+  function ytId(u){
+    const m = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/i);
+    return m ? m[1] : '';
+  }
+  function escHi(raw, rx){
+    let out = '', last = 0;
+    for (const m of raw.matchAll(rx)){
+      if (!m[0]) continue;
+      out += esc(raw.slice(last, m.index)) + '<mark>' + esc(m[0]) + '</mark>'; last = m.index + m[0].length;
+    }
+    return out + esc(raw.slice(last));
+  }
+  function richText(s, noMedia, rx){
+    const seg = t => (rx ? escHi(t, rx) : esc(t)).replace(/\n/g, '<br>');
+    s = String(s || '').replace(/\n[ \t　]*(?:\n[ \t　]*)+/g, '\n'); let out = '', last = 0; const media = [];
+    for (const m of s.matchAll(URL_RX)){
+      out += seg(s.slice(last, m.index));
+      last = m.index + m[0].length;
+      const u = /^https?:/i.test(m[0]) ? m[0] : 'h' + m[0];
+      let x; try { x = new URL(u); } catch (e) { out += esc(m[0]); continue; }
+      const label = x.hostname + (x.pathname.length > 24 ? x.pathname.slice(0, 22) + '…' : x.pathname);
+      out += `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`;
+      const yt = ytId(u);
+      if (IMG_X.test(x.pathname) || /^(i\.imgur\.com|pbs\.twimg\.com)$/i.test(x.hostname)) media.push({href: u, src: u});
+      else if (yt) media.push({href: u, src: `https://i.ytimg.com/vi/${yt}/mqdefault.jpg`, yt: true});
+    }
+    out += seg(s.slice(last));
+    out = out.replace(/(?:&gt;|＞){2}(\d{1,4}(?:-\d{1,4})?)/g, '<span class="anc">&gt;&gt;$1</span>');
+    if (media.length && state.img && !noMedia)
+      out += `<span class="media">${media.slice(0, 4).map(x => `<a href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"><img src="${esc(x.src)}" alt="" loading="lazy" referrerpolicy="no-referrer"${x.yt ? ' class="yt"' : ''} onerror="this.parentNode.remove()"></a>`).join('')}</span>`;
+    return out;
+  }
+  const replyLvl = n => n >= 30 ? 4 : n >= 20 ? 3 : n >= 10 ? 2 : 1;
+  function hotHTML(d, h){
+    if (LEGACY) return '<p class="empty">伸びたレスは、次の更新から見られます。</p>';
+    if (!h) return '<p class="empty">伸びたレスを読み込めませんでした。次の更新で作られます。</p>';
+    const th = [5, 10, 20, 30], all = h.posts || [];
+    const cnt = t => all.filter(p => p.n >= t).length;
+    let list = all.filter(p => p.n >= state.hmin);
+    list = state.hsort === 't' ? list.slice().sort((a, b) => a.t.localeCompare(b.t) || b.n - a.n) : list.slice().sort((a, b) => b.n - a.n || a.t.localeCompare(b.t));
+    const bar = `<div class="hotbar"><span class="lbl">返信が</span>${th.map(t => `<button class="hchip" data-hmin="${t}" aria-pressed="${state.hmin === t}">${t}件以上<span class="c">${cnt(t)}</span></button>`).join('')}` +
+      `<span class="sp"></span><button class="link" data-hsort="1">${state.hsort === 't' ? '時刻順 ▸ 返信が多い順にする' : '返信が多い順 ▸ 時刻順にする'}</button>` +
+      `<label class="imgsw"><input type="checkbox" id="imgsw"${state.img ? ' checked' : ''}>画像を表示</label></div>`;
+    if (!list.length) return bar + `<p class="empty">この日は、返信が${state.hmin}件以上ついた書き込みはありません。しきい値を下げてみてください。</p>`;
+    const SHOW = 5;
+    const cards = list.map(p => {
+      const groups = p.r || [], rest = groups.length - SHOW + (p.more || 0);
+      const lis = groups.map((g, i) => `<li${i >= SHOW ? ' class="more"' : ''}><span class="tm">${esc(g.t)}</span><span>${g.b ? richText(g.b) : '<span class="nn">（アンカーだけ）</span>'}${g.c > 1 ? `<span class="x">×${g.c}</span>` : ''}${g.n ? `<span class="nn">返信${g.n}</span>` : ''}</span></li>`).join('');
+      return `<article class="hp l${replyLvl(p.n)}"><div class="hh"><span class="tm">${esc(p.t)}</span><span class="rc">返信 ${p.n}</span><span class="id">ID:${esc(p.id)}</span>` +
+        `<span class="src">${bbsLink(p.tid, p.no, `${p.th ? 'No.' + esc(p.th) + ' ' : ''}&gt;&gt;${p.no}`)}</span></div>` +
+        ((p.ctx || []).length ? `<div class="ctx">${p.ctx.map(c => `<div><span class="anc">&gt;&gt;${c.no}</span> ${richText(c.b, true)}</div>`).join('')}</div>` : '') +
+        `<div class="pb">${richText(p.b)}</div><ol class="rl">${lis}</ol>` +
+        (rest > 0 ? `<button class="link rmore" data-more="1" data-label="残りの返信 ${rest}件を見る">残りの返信 ${rest}件を見る</button>` : '') + `</article>`;
+    }).join('');
+    return bar + `<div class="cols">${cards}</div>`;
+  }
+
+  // ---- 元のレス：話題をタップすると、その時間帯の書き込みを返信つきで開く ----
+  const LGREG = [];
+  const endOf = (s, e) => (e && e > s) ? e : '24:00';
+  const toMin = hm => { const [h, m] = String(hm).split(':').map(Number); return h * 60 + (m || 0); };
+  const fromMin = n => { n = Math.max(0, Math.min(1440, n)); return n === 1440 ? '24:00' : `${String(Math.floor(n / 60)).padStart(2, '0')}:${String(n % 60).padStart(2, '0')}`; };
+  const escRx = s => String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  function logOK(d){
+    if (LEGACY) return false;
+    const di = byDate[d.date];
+    if (!di || !(di.lh || []).length) return false;
+    if (GH){ const i = idx.days.findIndex(x => x.date === d.date); if (i < 0 || i >= (idx.logdays || 0)) return false; }
+    return true;
+  }
+  function lgAttr(d, t, w){
+    if (!logOK(d)) return '';
+    const tm = t.time || (w && w.start) || '00:00';
+    if (!w) w = (d.timeline || []).find(c => c.start <= tm && tm < endOf(c.start, c.end));
+    const start = w ? w.start : fromMin(toMin(tm) - 15), end = w ? endOf(w.start, w.end) : fromMin(toMin(tm) + 15);
+    return ` data-lg="${LGREG.push({date: d.date, t, tm, start, end, v: w ? (w.per10 || 0) : 0}) - 1}" tabindex="0" role="button"`;
+  }
+  const lv = {open: false, seq: 0, ent: null, from: '', to: '', all: [], M: {}, threads: [], hue: {}, words: [], nimg: 0,
+              th: '', kw: new Set(), imgOnly: false, sort: 't', opener: null,
+              mode: 'all', hit: new Set(), rel: new Set(), refs: new Set(), relN: 0, hl: []};
+  const logCache = new Map(), loadedL = {};
+  async function loadLogHour(date, hh){
+    const di = byDate[date] || {}, key = date + '/' + hh;
+    if (logCache.has(key) && loadedL[key] === di.lv) return logCache.get(key);
+    let x;
+    if (GH) x = await ghJSON(`data/log/${date}/${hh}.json`, di.lv);
+    else { delete NKD.logs[key]; await loadScript(`data/log/${date}/${hh}.js?v=${di.lv || Date.now()}`); x = NKD.logs[key]; delete NKD.logs[key]; }
+    if (!x) throw new Error('empty');
+    loadedL[key] = di.lv; logCache.set(key, x);
+    if (logCache.size > 10) logCache.delete(logCache.keys().next().value);
+    return x;
+  }
+  const MEDIA_HINT = /ttps?:\/\/\S*?(?:\.(?:jpe?g|png|gif|webp)(?:[?#)）」』】\s]|$)|imgur\.com\/|pbs\.twimg\.com\/|youtube\.com\/(?:watch|shorts|live)|youtu\.be\/)/i;
+  async function lgLoad(){
+    const date = lv.ent.date, di = byDate[date] || {};
+    const f = toMin(lv.from), t = toMin(lv.to), want = [];
+    for (let h = Math.floor(f / 60); h <= Math.floor((t - 1) / 60); h++) want.push(String(h).padStart(2, '0'));
+    const has = new Set((di.lh || []).map(h => String(h).padStart(2, '0')));
+    const files = await Promise.all(want.filter(h => has.has(h)).map(h => loadLogHour(date, h)));
+    const P = [], M = {}, lo = lv.from, hi = lv.to === '24:00' ? '24:00' : lv.to;
+    files.forEach(x => {
+      const tl = x.th.map(a => ({tid: a[0], no: a[1], title: a[2]}));
+      x.p.forEach(r => {
+        const th = tl[r[0]], p = {tid: th.tid, tn: th.no, tt: th.title, no: r[1], t: r[2], id: r[3], b: r[4], n: r[5] || 0, tg: r[6] || [], rl: r[7] || []};
+        M[p.tid + ':' + p.no] = p;
+        const hm = p.t.slice(0, 5);
+        if (hm >= lo && hm < hi){ p.img = MEDIA_HINT.test(p.b); P.push(p); }
+      });
+    });
+    files.forEach(x => {          // 同じ時間のファイルに入っていない返信・返信先
+      const tl = x.th.map(a => ({tid: a[0], no: a[1], title: a[2]}));
+      Object.entries(x.ex || {}).forEach(([k, v]) => {
+        const [ti, no] = k.split(':'), th = tl[+ti], key = th.tid + ':' + no;
+        if (!M[key]) M[key] = {tid: th.tid, tn: th.no, tt: th.title, no: +no, t: v[0], id: v[1], b: v[2], n: v[3] || 0, tg: [], rl: [], ex: true};
+      });
+    });
+    P.sort((a, b) => a.t < b.t ? -1 : a.t > b.t ? 1 : a.tid < b.tid ? -1 : a.tid > b.tid ? 1 : a.no - b.no);
+    lv.all = P; lv.M = M;
+    const cnt = {}, first = {};
+    P.forEach(p => { cnt[p.tid] = (cnt[p.tid] || 0) + 1; if (!first[p.tid]) first[p.tid] = p; });
+    lv.threads = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a]).map((tid, i) => { lv.hue[tid] = (i * 67 + 200) % 360; return {tid, n: cnt[tid], no: first[tid].tn, title: first[tid].tt}; });
+    lv.nimg = P.filter(p => p.img).length;
+  }
+  // ---- 話題と元レスの対応：要約のもと（refs）・話題のことばが入ったレス・その返信 ----
+  // 同じ時間帯のほかの話題とも比べて、いちばん近い話題に振り分ける（ほかの話題のレスが混ざらないように）
+  const STOPW = new Set(['配信','話題','反応','議論','視聴者','スレ','書き込み','発言','意見','指摘','言及','状況','内容','様子','今回','自身','期待',
+    '評価','批判','ライバー','リスナー','コメント','雑談','注目','展開','結果','可能性','問題','関係','相手','本人','全体','場合','一部','部分','対象',
+    '具体的','具体','妄想','感想','解釈','共感','視聴','ネタ','名前','呼び名','行動','理由','経験','事情','意味','騒動','比較','ちゃん','さん','くん',
+    'スレ民','住民','場面','時間','最近','今日','昨日','全員','自分','普通','本当','事実','以外','以上','状態','傾向','存在','説明','質問','否定','肯定',
+    '盛り上','多数','連投','殺到','大量','飛び交','交錯','考察','分析','言葉','表現','様々','複数','特定','実際','一方','当時','ゲーム']);
+  function topicTerms(t){
+    const out = new Map();
+    const add = (w, wt, nm) => { w = String(w).trim(); if (w.length < 2 || STOPW.has(w)) return; const k = w.toLowerCase();
+      const o = out.get(k); if (!o || o.wt < wt) out.set(k, {w, lw: k, wt, nm: !!(nm || (o && o.nm))}); };
+    (t.names || []).forEach(n => {
+      n = String(n).trim(); add(n, 3, 1);
+      const m = n.match(/^(.+?)(ちゃん|さん|くん|様|氏|たん)$/); if (m) add(m[1], 3, 1);
+      (n.match(/[ァ-ヴー]{2,}|[一-龥々]{2,}|[A-Za-z0-9]{2,}/g) || []).forEach(w => { if (w !== n) add(w, 2.5, 1); });
+      if (/^[一-龥々]{3,4}$/.test(n)) add(n.slice(-2), 2.5, 1);   // 「椎名詩乃」→「詩乃」
+    });
+    const src = (t.title || '') + '　' + (t.summary || '');
+    (src.match(/[「『]([^」』]{2,24})[」』]/g) || []).forEach(q => add(q.slice(1, -1), 3));
+    (src.match(/[ァ-ヴー]{2,}/g) || []).forEach(w => add(w, w.length >= 3 ? 2 : 1.5));
+    (src.match(/[A-Za-z][A-Za-z0-9_.+-]{1,}|[0-9]+[A-Za-z%]+/g) || []).forEach(w => add(w, 2));
+    (src.match(/[一-龥々]{2,}/g) || []).forEach(w => { add(w, w.length >= 3 ? 1.5 : 1.2); if (w.length >= 4) for (let i = 0; i + 2 <= w.length; i++) add(w.slice(i, i + 2), 1); });
+    return [...out.values()];
+  }
+  function scoreAll(topics, posts){
+    const N = posts.length || 1, low = posts.map(p => String(p.b || '').toLowerCase());
+    const lenK = low.map(b => b.length > 200 ? Math.sqrt(b.length / 200) : 1);   // 長い書き込み（テンプレなど）は言葉が多く当たるので割り引く
+    return topics.map(t => {
+      const terms = topicTerms(t);
+      const df = terms.map(x => { let c = 0; for (const b of low) if (b.includes(x.lw)) c++; return c; });
+      const wt = terms.map((x, j) => (df[j] && df[j] <= Math.max(3, N * 0.25)) ? x.wt * Math.log(1 + N / df[j]) : 0);
+      // 名前だけで当たるのは、その名前がこの時間にあまり出てこないときだけ（よく出る名前だと、どの話題にも当たってしまう）
+      const rare = terms.map((x, j) => x.nm && df[j] && df[j] <= Math.max(3, N * 0.05));
+      const score = low.map((b, i) => { let name = 0, body = 0, r = false;
+        terms.forEach((x, j) => { if (!wt[j] || !b.includes(x.lw)) return;
+          if (x.nm){ name = Math.max(name, wt[j]); if (rare[j]) r = true; } else body += wt[j]; });
+        return (body || r) ? (name + body) / lenK[i] : 0; });
+      return {score, info: terms.map((x, j) => ({w: x.w, df: df[j], wt: wt[j], nm: x.nm}))};
+    });
+  }
+  function relate(ti, topics, posts, sc){
+    const key = p => p.tid + ':' + p.no, t = topics[ti], mine = sc[ti].score, best = Math.max(0, ...mine);
+    const refs = new Set((t.refs || []).map(r => r[0] + ':' + r[1])), hit = new Set();
+    posts.forEach((p, i) => {
+      if (refs.has(key(p))){ hit.add(key(p)); return; }
+      const s = mine[i]; if (s < Math.max(4, best * 0.3)) return;
+      let top = 0; sc.forEach(o => { if (o.score[i] > top) top = o.score[i]; });
+      if (s >= top * 0.8) hit.add(key(p));
+    });
+    const rel = new Set(hit);   // 当たったレスへの返信と、当たったレスが返信していた先も入れる
+    posts.forEach(p => {
+      const k = key(p);
+      if (hit.has(k)){ (p.rl || []).forEach(r => rel.add(p.tid + ':' + r)); (p.tg || []).forEach(r => rel.add(p.tid + ':' + r)); }
+      else if ((p.tg || []).some(r => hit.has(p.tid + ':' + r))) rel.add(k);
+    });
+    return {hit, rel, refs};
+  }
+  // 見どころ（1日のまとめ）には refs がないので、同じ時間帯のいちばん似た話題から借りる
+  function borrowRefs(h, ts){
+    const hs = new Set(topicTerms(h).map(x => x.lw)); let best = null, bn = 1;
+    ts.forEach(t => { if (!t.refs) return; const n = topicTerms(t).filter(x => hs.has(x.lw)).length; if (n > bn){ bn = n; best = t; } });
+    return best ? best.refs : undefined;
+  }
+  function windowTopics(ent){
+    const d = NKD.days[ent.date] || {};
+    const ts = (d.timeline || []).filter(c => c.start === ent.start).flatMap(c => c.topics || []);
+    let i = ts.indexOf(ent.t);
+    if (i < 0){ ts.push(Object.assign({}, ent.t, {refs: ent.t.refs || borrowRefs(ent.t, ts)})); i = ts.length - 1; }
+    return {ts, i};
+  }
+  function lgRows(){
+    let rows = lv.all;
+    if (lv.mode === 'topic') rows = rows.filter(p => lv.rel.has(p.tid + ':' + p.no));
+    if (lv.th) rows = rows.filter(p => p.tid === lv.th);
+    if (lv.imgOnly) rows = rows.filter(p => p.img);
+    if (lv.kw.size){ const rx = new RegExp([...lv.kw].map(escRx).join('|'), 'i'); rows = rows.filter(p => rx.test(p.b)); }
+    if (lv.sort === 'n') rows = rows.slice().sort((a, b) => b.n - a.n || (a.t < b.t ? -1 : 1));
+    return rows;
+  }
+  const stripAnc = (b, k) => String(b || '').replace(new RegExp('^\\s*(?:(?:>|＞){2}\\s*' + k + '(?!\\d)\\s*)+'), '').trim();
+  function lgCard(p, rx){
+    const n = p.n, c = n >= 30 ? 'l4' : n >= 20 ? 'l3' : n >= 10 ? 'l2' : n >= 5 ? 'l1' : 'n0';
+    const ctx = p.tg.map(k => lv.M[p.tid + ':' + k]).filter(Boolean);
+    // スレが複数あるときだけスレ番号をつける（ほとんどが同じスレなら、それ以外のスレのレスにだけ）
+    const main = lv.threads[0], tag = lv.threads.length > 1 && !lv.th && (p.tid !== main.tid || main.n < lv.all.length * 0.8);
+    const k = p.tid + ':' + p.no, ref = lv.refs.has(k);
+    return `<article class="hp lp ${c}${lv.hit.has(k) ? ' hit' : ''}"><div class="hh"><span class="tm" title="${esc(p.t)}">${esc(p.t.slice(0, 5))}</span>` +
+      (ref ? '<span class="refb">★要約のもと</span>' : '') +
+      (n ? `<button class="rcb" data-lrep="${esc(p.tid + ':' + p.no)}" aria-expanded="false">返信 ${n}</button>` : '') +
+      `<span class="id">ID:${esc(p.id)}</span>` + (tag ? `<span class="thn" style="--hue:${lv.hue[p.tid] || 0}">${p.tn ? 'No.' + esc(p.tn) : 'スレ'}</span>` : '') +
+      `<span class="src">${bbsLink(p.tid, p.no, `&gt;&gt;${p.no}`)}</span></div>` +
+      (ctx.length ? `<div class="ctx">${ctx.map(x => `<div><span class="anc">&gt;&gt;${x.no}</span> ${richText(x.b.replace(/\s*\n\s*/g, ' ').slice(0, 160), true)}</div>`).join('')}</div>` : '') +
+      `<div class="pb">${richText(p.b, false, rx)}</div></article>`;
+  }
+  function lgReplies(p){
+    const rows = (p.rl || []).map(k => lv.M[p.tid + ':' + k]).filter(Boolean), groups = [], index = {};
+    rows.forEach(r => {
+      const text = stripAnc(r.b, p.no).slice(0, 300), key = text.length <= 40 ? text : null;
+      if (key != null && key in index){ groups[index[key]].c++; return; }
+      if (key != null) index[key] = groups.length;
+      groups.push({r, text, c: 1});
+    });
+    const rest = p.n - groups.reduce((a, g) => a + g.c, 0);
+    return `<ol class="rl">${groups.map(g => `<li><span class="tm">${esc(g.r.t.slice(0, 5))}</span><span>${g.text ? richText(g.text) : '<span class="nn">（アンカーだけ）</span>'}${g.c > 1 ? `<span class="x">×${g.c}</span>` : ''}${g.r.n ? `<span class="nn">返信${g.r.n}</span>` : ''}</span></li>`).join('')}</ol>` +
+      (rest > 0 ? `<p class="nn">ほか ${rest}件（別の時間帯・表示しきれない分）</p>` : '');
+  }
+  function lgHead(){
+    const e = lv.ent, t = e.t, f = fmtD(e.date);
+    $('#lvh').innerHTML = `<button class="lvx" data-lvx aria-label="閉じる">✕</button>` +
+      `<div class="lvm"><b>${f.md}（${f.w}）${esc(e.start)}〜${esc(e.end)}</b>${e.v ? heatTag(e.v) : ''}<span id="lvn"></span></div>` +
+      `<button class="lvt" data-lvmore="1" aria-expanded="false">${esc(t.title)}</button>` +
+      `<div class="lvd">${t.summary ? `<p class="lvs">${esc(t.summary)}</p>` : ''}` +
+      ((t.names || []).length ? `<div class="hn">${t.names.map(n => `<span>#${esc(n)}</span>`).join('')}</div>` : '') + `</div>`;
+  }
+  function lgBar(){
+    const parts = [];
+    parts.push(`<button class="hchip" data-lmode="topic" aria-pressed="${lv.mode === 'topic'}"${lv.relN ? '' : ' disabled'}>この話題<span class="c">${lv.relN}</span></button>` +
+      `<button class="hchip" data-lmode="all" aria-pressed="${lv.mode === 'all'}">すべて<span class="c">${lv.all.length}</span></button>`);
+    if (lv.words.length) parts.push('<span class="lbl">ことば</span>' +
+      lv.words.map(w => `<button class="hchip" data-lkw="${esc(w.w)}" aria-pressed="${lv.kw.has(w.w)}">${esc(w.w)}<span class="c">${w.c}</span></button>`).join(''));
+    parts.push(`<button class="hchip" data-limg="1" aria-pressed="${lv.imgOnly}">画像つき<span class="c">${lv.nimg}</span></button>`);
+    if (lv.threads.length > 1) parts.push(`<span class="lbl">スレ</span><button class="hchip" data-lth="" aria-pressed="${!lv.th}">すべて<span class="c">${lv.all.length}</span></button>` +
+      lv.threads.map(t => `<button class="hchip" data-lth="${esc(t.tid)}" aria-pressed="${lv.th === t.tid}" title="${esc(t.title)}">${t.no ? 'No.' + esc(t.no) : 'スレ'}<span class="c">${t.n}</span></button>`).join(''));
+    return `<div class="lvrow">${parts.join('<span class="sep"></span>')}</div>` +
+      `<div class="lvrow wrap"><span class="lbl" id="lvcnt"></span><span class="sp"></span>` +
+      `<button class="hchip" data-lsort="t" aria-pressed="${lv.sort !== 'n'}">時刻順</button><button class="hchip" data-lsort="n" aria-pressed="${lv.sort === 'n'}">返信が多い順</button>` +
+      `<label class="imgsw"><input type="checkbox" id="lvimg"${state.img ? ' checked' : ''}>画像を表示</label></div>`;
+  }
+  function lgDraw(mode){
+    const box = $('#lvb'), keep = box.scrollTop, hBefore = box.scrollHeight;
+    $('#lvbar').innerHTML = lgBar();
+    const rows = lgRows(), e = lv.ent, shownWords = lv.hl.map(escRx).sort((a, b) => b.length - a.length);
+    const rx = shownWords.length ? new RegExp(shownWords.join('|'), 'gi') : null;
+    const all = lv.mode !== 'topic';
+    let h = '', marked = !all;
+    if (!all) h += `<p class="lvnote">話題のことばが入ったレス（色つき）${lv.refs.size ? '、要約に使われたレス（★）' : ''}と、それへの返信です。ほかのレスは「すべて」で見られます。</p>`;
+    if (all && toMin(lv.from) > 0 && lv.sort === 't') h += `<button class="lvext" data-lext="b">▲ さらに前の${lv.step}分を見る（${esc(fromMin(toMin(lv.from) - lv.step))}〜）</button>`;
+    rows.forEach(p => {
+      if (!marked && lv.sort === 't' && p.t.slice(0, 5) >= e.tm){ h += `<div class="lvmark" id="lvmark">▼ この話題の時刻 ${esc(e.tm)}</div>`; marked = true; }
+      h += lgCard(p, rx);
+    });
+    if (!rows.length) h += `<p class="empty">${lv.all.length ? '条件に合う書き込みはありません。上のボタンで絞り込みを外してください。' : 'この時間帯の書き込みは見つかりませんでした。'}</p>`;
+    if (all && toMin(lv.to) < 1440 && lv.sort === 't') h += `<button class="lvext" data-lext="a">▼ さらに後の${lv.step}分を見る（〜${esc(fromMin(toMin(lv.to) + lv.step))}）</button>`;
+    box.innerHTML = h;
+    $('#lvcnt').textContent = rows.length === lv.all.length ? `全${rows.length}件` : `${rows.length}件に絞り込み`;
+    $('#lvn').textContent = `${lv.all.length}レス（${lv.from}〜${lv.to}）`;
+    if (mode === 'topic'){ const m = all && $('#lvmark'); box.scrollTop = m ? Math.max(0, m.offsetTop - 64) : 0; }
+    else if (mode === 'before') box.scrollTop = keep + (box.scrollHeight - hBefore);
+    else box.scrollTop = keep;
+  }
+  function lgFail(e){
+    let m = '元レスを読み込めませんでした。つながるところで、もう一度開いてください。';
+    if (GH && e && e.status === 404) m = (idx && idx.logdays) ? `この日の元レスは、スマホには入れていません（直近${idx.logdays}日分だけ入れています）。PCでは見られます。` : 'スマホには元レスを入れない設定になっています。';
+    $('#lvbar').innerHTML = ''; $('#lvb').innerHTML = `<p class="empty">${esc(m)}</p>`;
+  }
+  async function lgFetch(mode){
+    const my = ++lv.seq;
+    try { await lgLoad(); } catch (e) { if (my === lv.seq) lgFail(e); return; }
+    if (my !== lv.seq || !lv.open) return;
+    if (mode === 'topic'){
+      const {ts, i} = windowTopics(lv.ent), sc = scoreAll(ts, lv.all), r = relate(i, ts, lv.all, sc);
+      Object.assign(lv, {hit: r.hit, rel: r.rel, refs: r.refs});
+      lv.relN = lv.all.filter(p => r.rel.has(p.tid + ':' + p.no)).length;
+      lv.words = sc[i].info.filter(x => x.df && x.df < lv.all.length).sort((a, b) => (b.nm - a.nm) || (b.wt - a.wt)).slice(0, 10).map(x => ({w: x.w, c: x.df}));
+      lv.hl = sc[i].info.filter(x => x.wt > 0).map(x => x.w);
+      lv.mode = lv.relN ? 'topic' : 'all';
+    }
+    lgDraw(mode);
+  }
+  function openLog(id){
+    const r = LGREG[id]; if (!r) return;
+    Object.assign(lv, {ent: r, from: r.start, to: r.end, th: '', kw: new Set(), imgOnly: false, sort: 't', all: [], M: {}, words: [], threads: [],
+                       mode: 'all', hit: new Set(), rel: new Set(), refs: new Set(), relN: 0, hl: [],
+                       step: Math.max(10, toMin(r.end) - toMin(r.start)), opener: document.activeElement, open: true});
+    $('#lv').hidden = false; document.body.classList.add('lock');
+    try { history.pushState({lv: 1}, ''); } catch (e) {}
+    lgHead(); $('#lvbar').innerHTML = ''; $('#lvb').innerHTML = '<p class="empty">読み込んでいます…</p>'; $('#lvb').scrollTop = 0;
+    const x = $('.lvx'); if (x) x.focus({preventScroll: true});
+    lgFetch('topic');
+  }
+  function hideLog(){
+    lv.open = false; lv.seq++; $('#lv').hidden = true; document.body.classList.remove('lock');
+    const o = lv.opener; if (o && o.focus){ try { o.focus({preventScroll: true}); } catch (e) {} }
+  }
+  function closeLog(){
+    if (!lv.open) return;
+    hideLog();
+    if (history.state && history.state.lv){ lv.skipPop = true; try { history.back(); } catch (e) { lv.skipPop = false; } }
+  }
+  addEventListener('popstate', e => {
+    if (lv.skipPop){ lv.skipPop = false; return; }
+    if (lv.open && !(e.state && e.state.lv)) hideLog();
+  });
+  try { if (history.state && history.state.lv) history.replaceState(null, ''); } catch (e) {}
+  function lgClick(b){
+    const d = b.dataset;
+    if (d.lg != null){ openLog(+d.lg); return; }
+    if (d.lvx != null){ closeLog(); return; }
+    if (d.lvmore){ const h = $('#lvh'), on = !h.classList.contains('more'); h.classList.toggle('more', on); b.setAttribute('aria-expanded', on); return; }
+    if (d.lmode){ if (lv.mode !== d.lmode && !b.disabled){ lv.mode = d.lmode; lgDraw('topic'); } return; }
+    if (d.lth != null){ lv.th = d.lth; lgDraw('topic'); return; }
+    if (d.lkw != null){ if (lv.kw.has(d.lkw)) lv.kw.delete(d.lkw); else lv.kw.add(d.lkw); lgDraw('topic'); return; }
+    if (d.limg){ lv.imgOnly = !lv.imgOnly; lgDraw('topic'); return; }
+    if (d.lsort){ const v = d.lsort === 'n' ? 'n' : 't'; if (lv.sort !== v){ lv.sort = v; lgDraw('topic'); } return; }
+    if (d.lext){
+      if (d.lext === 'b') lv.from = fromMin(toMin(lv.from) - lv.step); else lv.to = fromMin(toMin(lv.to) + lv.step);
+      lgFetch(d.lext === 'b' ? 'before' : 'keep'); return;
+    }
+    if (d.lrep){
+      const card = b.closest('.hp'), open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', open);
+      let w = card.querySelector('.rlw');
+      if (open){ if (!w){ w = document.createElement('div'); w.className = 'rlw'; w.innerHTML = lgReplies(lv.M[d.lrep]); card.appendChild(w); } w.hidden = false; }
+      else if (w) w.hidden = true;
+    }
+  }
+
+  // ---- 検索 ----
+  function resultsHTML(){
+    const q = state.q.toLowerCase(), tag = state.tag; let n = 0; const groups = []; LGREG.length = 0;
+    const hit = t => {
+      if (tag && !(t.names || []).includes(tag)) return false;
+      if (q){ const s = (t.title + ' ' + t.summary + ' ' + (t.names || []).join(' ')).toLowerCase(); if (!s.includes(q)) return false; }
+      return true;
+    };
+    idx.days.forEach(di => {
+      const d = NKD.days[di.date]; if (!d) return;
+      const items = [];
+      (d.highlights || []).forEach(h => { if (hit(h)) items.push(h); });
+      (d.timeline || []).forEach(c => (c.topics || []).forEach(t => { if (hit(t) && !items.some(x => x.title === t.title)) items.push(t); }));
+      items.sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+      if (items.length){ groups.push([d, items]); n += items.length; }
+    });
+    const label = [tag ? `#${esc(tag)}` : '', q ? `「${esc(state.q)}」` : ''].filter(Boolean).join(' ＋ ');
+    if (!n) return `<p class="empty">${label} に当てはまる話題はありません。</p>`;
+    return `<p class="rh">${label} の話題 <b>${n}</b>件</p>` + groups.map(([d, its]) => { const f = fmtD(d.date);
+      return `<div class="grp"><div class="gh"><b>${f.md}（${f.w}）</b><button class="link" data-goto="${d.date}">この日を開く</button></div><div class="cols">` +
+        its.map(t => { const v = heatAt(d, t.time) || 0; return `<div class="hit l${lvl(v)}">${topicLine(t, state.q, lgAttr(d, t))}</div>`; }).join('') + `</div></div>`; }).join('');
+  }
+
+  // ---- 描画 ----
+  let seq = 0;
+  async function render(scrollTop){
+    const my = ++seq;
+    markCurrent();
+    const main = $('#main');
+    if (!idx || !idx.days.length){ main.innerHTML = '<p class="empty">まだ要約した日がありません。PCで「要約する.bat」を実行するか、自動更新を待ってください。</p>'; return; }
+    if (state.q || state.tag){
+      const missing = idx.days.filter(d => !NKD.days[d.date] || (!LEGACY && loadedV[d.date] !== d.v));
+      if (missing.length){
+        main.innerHTML = '<p class="empty">全部の日から探しています…</p>';
+        await loadAll((k, all) => { if (my === seq) main.innerHTML = `<p class="empty">全部の日から探しています… ${k}/${all}日</p>`; });
+        if (my !== seq) return;
+      }
+      main.innerHTML = resultsHTML();
+    } else {
+      let d = NKD.days[state.date];
+      if (!d || (!LEGACY && loadedV[state.date] !== byDate[state.date].v)){
+        main.innerHTML = '<p class="empty">読み込んでいます…</p>';
+        try { d = await loadDay(state.date); } catch (e) { d = null; }
+        if (my !== seq) return;
+      }
+      if (!d){ main.innerHTML = '<p class="empty">この日のデータを読み込めませんでした。PCがついているか確かめて、もう一度開いてください。</p>'; }
+      else if (state.tab === 'hot'){
+        const head = `<article class="day">${dayHTML(d)}${tabsHTML(d)}`;
+        main.innerHTML = head + '<p class="empty">伸びたレスを読み込んでいます…</p></article>';
+        let hh = null; try { hh = await loadHot(state.date); } catch (e) { hh = null; }
+        if (my !== seq) return;
+        main.innerHTML = head + hotHTML(d, hh) + '</article>';
+      } else {
+        main.innerHTML = `<article class="day">${dayHTML(d)}${tabsHTML(d)}${sumHTML(d)}</article>`;
+      }
+    }
+    if (scrollTop) window.scrollTo(0, 0);
+  }
+  function go(date){ state.date = date; state.q = ''; state.tag = ''; $('#q').value = ''; save(); render(true); }
+
+  document.addEventListener('click', e => {
+    if (e.target.id === 'lv'){ closeLog(); return; }
+    const lb = e.target.closest('[data-lg],[data-lvx],[data-lvmore],[data-lmode],[data-lth],[data-lkw],[data-limg],[data-lsort],[data-lext],[data-lrep]');
+    if (lb && !e.target.closest('a')){ lgClick(lb); return; }
+    const b = e.target.closest('[data-date],[data-goto],[data-tag],[data-act],[data-tab],[data-hmin],[data-hsort],[data-more]'); if (!b) return;
+    if (b.dataset.tab){ if (state.tab !== b.dataset.tab){ state.tab = b.dataset.tab; save(); render(false); } return; }
+    if (b.dataset.hmin){ state.hmin = +b.dataset.hmin; save(); render(false); return; }
+    if (b.dataset.hsort){ state.hsort = state.hsort === 't' ? 'n' : 't'; save(); render(false); return; }
+    if (b.dataset.more){ const c = b.closest('.hp'); const open = !c.classList.contains('open'); c.classList.toggle('open', open);
+      b.textContent = open ? '返信をたたむ' : b.dataset.label; return; }
+    if (b.dataset.date) go(b.dataset.date);
+    else if (b.dataset.goto) go(b.dataset.goto);
+    else if (b.dataset.tag != null && b.classList.contains('tag')){ state.tag = state.tag === b.dataset.tag ? '' : b.dataset.tag; render(true); }
+    else if (b.dataset.act === 'toggle'){
+      const all = [...document.querySelectorAll('.win')], open = !all.every(w => w.open);
+      all.forEach(w => w.open = open); state.open = open; b.textContent = open ? 'すべてたたむ' : 'すべて開く';
+    }
+  });
+  document.addEventListener('change', e => {
+    if (e.target.id === 'imgsw'){ state.img = e.target.checked; save(); render(false); }
+    if (e.target.id === 'lvimg'){ state.img = e.target.checked; save(); if (lv.open) lgDraw('keep'); }
+  });
+  let qt = 0;
+  $('#q').addEventListener('input', e => { clearTimeout(qt); qt = setTimeout(() => { state.q = e.target.value.trim(); render(true); }, 200); });
+  $('#clear').addEventListener('click', () => { state.q = ''; state.tag = ''; $('#q').value = ''; render(true); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && lv.open){ closeLog(); return; }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-lg]') && !lv.open){ e.preventDefault(); lgClick(e.target); return; }
+    if (lv.open || e.target.closest('input,textarea') || e.altKey || e.ctrlKey || e.metaKey || state.q || state.tag) return;
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const i = idx.days.findIndex(d => d.date === state.date);
+    const j = e.key === 'ArrowLeft' ? i + 1 : i - 1;   // 左＝前の日、右＝次の日
+    if (idx.days[j]){ e.preventDefault(); go(idx.days[j].date); }
+  });
+  const bar = $('#bar');
+  const setTop = () => document.documentElement.style.setProperty('--top', (matchMedia('(min-width:1100px)').matches ? bar.offsetHeight : 0) + 'px');
+  new ResizeObserver(setTop).observe(bar); addEventListener('resize', setTop);
+
+  // ---- 文字の大きさ・背景（この端末に保存） ----
+  const FS = [[0.9, '小'], [1, '標準'], [1.15, '大'], [1.3, '特大'], [1.5, '最大']];
+  const BG = [['auto', '端末に合わせる'], ['white', '白'], ['gray', 'グレー'], ['sepia', 'セピア'], ['dark', '黒'], ['black', '真っ黒']];
+  const disp = {fs: 1, bg: 'auto', strong: false};
+  try { Object.assign(disp, JSON.parse(localStorage.getItem('nkd-disp') || '{}')); } catch (e) {}
+  function applyDisp(){
+    const r = document.documentElement;
+    r.style.setProperty('--fsu', disp.fs);
+    if (disp.bg && disp.bg !== 'auto') r.setAttribute('data-theme', disp.bg); else r.removeAttribute('data-theme');
+    if (disp.strong) r.setAttribute('data-strong', ''); else r.removeAttribute('data-strong');
+    try { localStorage.setItem('nkd-disp', JSON.stringify(disp)); } catch (e) {}
+  }
+  function dispHTML(){
+    const chip = (key, v, label) => `<button class="hchip" data-disp="${key}" data-v="${v}" aria-pressed="${String(disp[key]) === String(v)}">${label}</button>`;
+    return `<h3>文字の大きさと背景</h3>` +
+      `<div class="row"><span class="lbl">文字の大きさ</span><div class="opts">${FS.map(([v, l]) => chip('fs', v, l)).join('')}</div></div>` +
+      `<div class="row"><span class="lbl">背景</span><div class="opts">${BG.map(([v, l]) => chip('bg', v, l)).join('')}</div></div>` +
+      `<div class="row"><span class="lbl">文字の濃さ</span><div class="opts">${chip('strong', false, 'ふつう')}${chip('strong', true, 'くっきり')}</div></div>` +
+      `<p class="sample">見本：今日の配信めっちゃ良かった <b>&gt;&gt;123</b><small>ID:AbCd1234　19:12　返信 5</small></p>` +
+      `<button class="btn end" data-disp="close">閉じる</button>`;
+  }
+  function openDisp(open){
+    const p = $('#disp'), b = $('#dispBtn');
+    if (open){ p.innerHTML = dispHTML(); p.hidden = false; b.setAttribute('aria-expanded', 'true'); }
+    else { p.hidden = true; b.setAttribute('aria-expanded', 'false'); }
+  }
+  $('#dispBtn').addEventListener('click', e => { e.stopPropagation(); openDisp($('#disp').hidden); });
+  $('#disp').addEventListener('click', e => {
+    e.stopPropagation();
+    const b = e.target.closest('[data-disp]'); if (!b) return;
+    const k = b.dataset.disp;
+    if (k === 'close'){ openDisp(false); return; }
+    disp[k] = k === 'fs' ? +b.dataset.v : k === 'strong' ? b.dataset.v === 'true' : b.dataset.v;
+    applyDisp(); $('#disp').innerHTML = dispHTML();
+  });
+  document.addEventListener('click', e => {   // 外をタップしたら閉じるだけ（下のボタンは押さない）
+    if (!$('#disp').hidden && !e.target.closest('#disp,#dispBtn')){ e.stopPropagation(); e.preventDefault(); openDisp(false); }
+  }, true);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#disp').hidden){ e.stopImmediatePropagation(); openDisp(false); } }, true);
+
+  // ---- 下に出るお知らせ ----
+  let toastT = 0;
+  function toast(msg, acts, keep){
+    const t = $('#toast'); clearTimeout(toastT);
+    t.innerHTML = `<div>${msg}</div>` + `<div class="acts">${(acts || []).map((a, i) => `<button data-ti="${i}"${a[2] ? ' class="sub"' : ''}>${esc(a[0])}</button>`).join('')}<button class="sub" data-ti="x">閉じる</button></div>`;
+    t.hidden = false;
+    t.onclick = e => { const b = e.target.closest('[data-ti]'); if (!b) return; if (b.dataset.ti === 'x'){ t.hidden = true; return; } acts[+b.dataset.ti][1](); };
+    if (!keep) toastT = setTimeout(() => { t.hidden = true; }, 15000);
+  }
+  async function copyText(u){
+    try { await navigator.clipboard.writeText(u); toast('コピーしました。ChMate のメニュー「URLを指定して開く」に貼り付けると開けます。'); }
+    catch (e) {
+      toast(`下のURLを長押ししてコピーしてください。<input readonly value="${esc(u)}">`, [], true);
+      const i = $('#toast input'); if (i){ i.focus(); i.select(); }
+    }
+  }
+  // Android：元レスのリンクをタップしたら、URLをコピーして ChMate への貼り方を出す
+  async function openBbs(path){
+    const u = TH + path, no = path.split('/')[1];
+    const share = navigator.share ? [['共有から開く', () => navigator.share({url: u}).catch(() => {}), true]] : [];
+    try {
+      await navigator.clipboard.writeText(u);
+      toast(`${no ? '&gt;&gt;' + esc(no) + ' の' : 'スレの'}URLをコピーしました。ChMate のメニュー「URLを指定して開く」に貼り付けると開けます。`, share, true);
+    } catch (e) {
+      toast(`下のURLを長押ししてコピーし、ChMate のメニュー「URLを指定して開く」に貼り付けてください。<input readonly value="${esc(u)}">`, share, true);
+      const i = $('#toast input'); if (i){ i.focus(); i.select(); }
+    }
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a.cm[data-bbs]'); if (!a || e.defaultPrevented) return;
+    e.preventDefault(); openBbs(a.dataset.bbs);
+  }, true);
+  // （前の版のリンクから）ChMate で開けなかったとき、Chrome がこのページの #chmate-ng=… に戻してくる
+  function chmateFail(){
+    const m = location.hash.match(/^#chmate-ng=(.*)$/); if (!m) return;
+    let u = ''; try { u = decodeURIComponent(m[1]); } catch (e) {}
+    try { history.replaceState(lv.open ? {lv: 1} : null, '', location.pathname + location.search); } catch (e) {}
+    if (!u.startsWith(TH)) return;
+    openBbs(u.slice(TH.length));
+  }
+  addEventListener('hashchange', chmateFail);
+  chmateFail();
+
+  // ---- アプリとして使うとき（https で開いたとき） ----
+  async function netStatus(){
+    if (!WEB || !navigator.serviceWorker || !navigator.serviceWorker.controller) return true;
+    try { const r = await fetch('__nkd_status', {cache: 'no-store'}); const j = await r.json(); return j.ok !== false; } catch (e) { return true; }
+  }
+  async function refresh(force){
+    const prevBuilt = idx && idx.built;
+    try { await loadIndex(); } catch (e) { return; }
+    if (!idx || !idx.days.length){ render(); return; }
+    if (!byDate[state.date]) state.date = idx.days[0].date;
+    const online = await netStatus();
+    if (force || idx.built !== prevBuilt){ renderChrome(!online); render(false); }
+    else renderChrome(!online);
+  }
+  if (WEB){
+    if ((location.protocol === 'https:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname)) && 'serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+    const l = document.createElement('link'); l.rel = 'manifest'; l.href = 'manifest.json'; document.head.appendChild(l);
+    document.body.classList.add('is-app');
+    let last = Date.now();
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && Date.now() - last > 60000){ last = Date.now(); refresh(false); } });
+    $('#reload').addEventListener('click', () => { last = Date.now(); loadedV = {}; refresh(true); });
+  }
+
+  // ---- スマホ用：GitHub のトークンを入れる画面 ----
+  function showSetup(msg){
+    const u = 'https://github.com/settings/personal-access-tokens/new?' + new URLSearchParams({
+      name: 'midokoro-phone', description: '見どころ帳アプリ用（読み取りのみ）', expires_in: 'none', contents: 'read'});
+    ['#stats', '#tags', '#chips', '#rail'].forEach(s => $(s).innerHTML = '');
+    $('#main').innerHTML = `<section class="setup"><h2>スマホで見る準備（最初の1回だけ）</h2>
+      <p>PCが作った要約は、GitHubの非公開リポジトリ <b>${esc(GH.owner)}/${esc(GH.repo)}</b> に置いてあります。読むための「トークン」を一度だけ入れてください。</p>
+      <ol><li><a href="${u}" target="_blank" rel="noopener">GitHubでトークンを作る画面を開く</a></li>
+      <li>「Repository access」で「Only select repositories」を選び、<b>${esc(GH.repo)}</b> を選ぶ</li>
+      <li>いちばん下の「Generate token」を押して、出てきた文字列をコピーする</li>
+      <li>下に貼り付けて「保存」を押す</li></ol>
+      <div class="row"><input id="tok" class="search" type="password" autocomplete="off" placeholder="github_pat_…" aria-label="トークン"><button id="tokSave" class="btn">保存</button></div>
+      ${msg ? `<p class="err">${esc(msg)}</p>` : ''}
+      <p class="small">このトークンでできるのは ${esc(GH.repo)} を読むことだけです。いらなくなったら GitHub の設定から消せます。</p></section>`;
+    $('#tokSave').addEventListener('click', () => {
+      const v = $('#tok').value.trim(); if (!v) return;
+      try { localStorage.setItem('nkd-gh-token', v); } catch (e) {}
+      location.reload();
+    });
+  }
+  if (GH){
+    document.body.classList.add('is-gh');
+    $('#retoken').addEventListener('click', () => { try { localStorage.removeItem('nkd-gh-token'); } catch (e) {} token = ''; showSetup(); window.scrollTo(0, 0); });
+  }
+
+  // ---- はじめ ----
+  (async () => {
+    if (GH && !token){ showSetup(); return; }
+    try { await loadIndex(); }
+    catch (e) {
+      if (GH && (e.status === 401 || e.status === 403)){ showSetup('トークンが正しくないか、期限が切れています。作り直して貼り付けてください。'); return; }
+      if (GH && e.status === 404){ showSetup(`${GH.repo} を読めませんでした。トークンを作るときに ${GH.repo} を選んだか確かめてください。`); return; }
+      $('#main').innerHTML = GH ? '<p class="empty">データを読み込めませんでした。電波のよいところで、もう一度開いてください。</p>'
+                                : '<p class="empty">データを読み込めませんでした。PCで「要約する.bat」を一度実行してください。</p>';
+      return;
+    }
+    if (!idx || !idx.days || !idx.days.length){ $('#main').innerHTML = '<p class="empty">まだ要約した日がありません。PCで「要約する.bat」を実行するか、自動更新を待ってください。</p>'; return; }
+    if (!byDate[state.date]) state.date = idx.days[0].date;
+    renderChrome(!(await netStatus()));
+    render(false);
+  })();
+})();
+</script>
+</body>
+</html>

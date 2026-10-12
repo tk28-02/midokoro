@@ -1,0 +1,29 @@
+{
+ "name": "なかよし板 見どころ帳",
+ "short_name": "見どころ帳",
+ "description": "PCのLLMで要約した、なかよし板の見どころ",
+ "lang": "ja",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#EEF0F5",
+ "theme_color": "#4B3FD1",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-maskable.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
